@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Instagram</title>
+    <link rel="stylesheet" href="/static/css/bulma.min.css">
+  </head>
+  <body>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="">
+            <img src="/static/img/hero-image.webp" width="68" height="68">
+          </a>
+      
+          <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+        </div>
+      
+        <div id="navbarBasicExample" class="navbar-menu">
+          {% if user.is_authenticated %}
+          <div class="navbar-start">
+            <a class="navbar-item">
+              Home
+            </a>
+            <!-- search -->
+            <form class="navbar-form" role="search" action="{% url 'search' %}">
+              {% csrf_token %}
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search profile" name="profile">
+                <div class="input-group-btn">
+                  <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                </div>
+              </div>
+    
+            </form>
+            <!-- search -->
+            <a class="navbar-item" href="{% url 'users-profile'%}">
+              Profile
+            </a>
+            
+              <a class="navbar-item" href="/logout">
+                log out
+              </a>
+              <a class="navbar-item" href="{% url 'post' %}">
+                post
+              </a>
+            {% else %}
+          </div>
+          <div class="navbar-end">
+            <div class="navbar-item">
+              <div class="buttons">
+                <a class="button is-primary" href="/accounts/register">
+                  <strong>Sign up</strong>
+                </a>
+                <a class="button is-light" href="/accounts/login">
+                  Log in
+                </a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+
+  <section class="section">
+    <div class="container">
+
+        <div class="columns is-mobile">
+            <div class="column is-offset">
+        {% for u in updates %}
+        <div class="card">
+            <div class="card-image">
+              <figure class="image is-4by3">
+                <img src="{{u.image.url}}" alt="Placeholder image">
+              </figure>
+            </div>
+            <div class="card-content">
+              <div class="media">
+                <div class="media-left">
+                  <figure class="image is-48x48">
+                    <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+                  </figure>
+                </div>
+                <!-- likes -->
+                <div>
+                <button type="submit"><a href="{% url 'like' %}">Like</a></button>
+                <strong>{{u.likes.count.all}} likes</strong>
+                </div>
+                <div class="media-content">
+                  <p class="title is-4">John</p>
+                  <p class="subtitle is-6">John@jm</p>
+                </div>
+              </div>
+          
+              <div class="content">
+                {{u.caption}} <a></a>.
+                <a href="#">#css</a> <a href="#">#responsive</a>
+                <br>
+                <time datetime="2016-1-1">{{u.created|date:"F d, Y" }}</time>
+              </div>
+            </div>
+          </div>
+          
+          <!-- comment -->
+        <div class="card-content">
+          <article class="media">
+            <figure class="media-left">
+              <p class="image is-64x64">
+                <img src="https://bulma.io/images/placeholders/128x128.png">
+              </p>
+            </figure>
+            <div class="media-content">
+              <div class="content">
+                
+                <p>
+                  <strong>{{c.username}}</strong>
+                  <br>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis porta eros lacus, nec ultricies elit blandit non. Suspendisse pellentesque mauris sit amet dolor blandit rutrum. Nunc in tempus turpis.
+                  <br>
+                  {{c.text}}
+                  <small><a>Like</a> · <a>Reply</a> · 3 hrs</small>
+                </p>
+                
+              </div>
+          <article class="media">
+            <figure class="media-left">
+              <p class="image is-64x64">
+                <img src="https://bulma.io/images/placeholders/128x128.png">
+              </p>
+            </figure>
+            <div class="media-content">
+              <form method="POST" action="{% url 'comments' %}" >
+                {% csrf_token %}
+              <div class="field">
+                <p class="control">
+                  <textarea class="textarea" placeholder="Add a comment..."></textarea>
+                </p>
+              </div>
+              <div class="field">
+                <p class="control">
+                  <button class="button">Post comment</button>
+                </p>
+              </div>
+              </form>
+            </div>
+          </article>
+         </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+  <script>
+
+  </script>
+  
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Instagram</title>
+    <link rel="stylesheet" href="/static/css/bulma.min.css">
+  </head>
+  <body>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="">
+            <img src="/static/img/hero-image.webp" width="68" height="68">
+          </a>
+      
+          <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+        </div>
+      
+        <div id="navbarBasicExample" class="navbar-menu">
+          <div class="navbar-start">
+            <a class="navbar-item" href="{% url 'index' %}">
+              Home
+            </a>
+      
+            <a class="navbar-item">
+              Profile
+            </a>
+      
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link">
+                More
+              </a>
+      
+              <div class="navbar-dropdown">
+                <a class="navbar-item">
+                  About
+                </a>
+                <a class="navbar-item">
+                  Jobs
+                </a>
+                <a class="navbar-item">
+                  Contact
+                </a>
+                <hr class="navbar-divider">
+                <a class="navbar-item">
+                  Report an issue
+                </a>
+              </div>
+            </div>
+          </div>
+      
+          <div class="navbar-end">
+            <div class="navbar-item">
+              <div class="buttons">
+                <a class="button is-primary" href="{% url 'post'%}">
+                  <strong>post</strong>
+                </a>
+                <a class="button is-light">
+                  Log in
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+
+  <section class="section">
+    <div class="container">
+      {% for t in texts %}
+        <nav class="level">
+        <div class="media">
+            <div class="media-left">
+                  <!-- image -->
+            <figure class="image is-128x128">
+                <img class="is-rounded" src="{{t.avatar.url}}">
+            </figure>
+            <!-- image -->
+            </div>
+
+            <!-- name-->
+            <div class="media-content">
+               <h1 class="title">{{t.name}}</h1>
+               <h2 class="subtitle">{{t.Username}}</h2>
+            
+               <button class="button is-danger">Follow</button>
+            </div>
+            
+            <!-- name -->
+        </div>
+    
+         <!-- ratings -->
+            <div class="level-item has-text-centered">
+              <div>
+                <p class="heading">Following</p>
+                <p class="heading">123</p>
+              </div>
+            </div>
+            <div class="level-item has-text-centered">
+              <div>
+                <p class="heading">Followers</p>
+                <p class="heading">456K</p>
+              </div>
+            </div>
+            <div class="level-item has-text-centered">
+              <div>
+                <p class="heading">Likes</p>
+                <p class="heading">789</p>
+              </div>
+            </div>
+          </nav>
+          
+          <!-- ratings -->
+
+          <!-- bio -->
+        <div>
+          <div class="content is-normal">
+            <p clas="subtitle is-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla accumsan, metus ultrices eleifend gravida, nulla nunc varius lectus, nec rutrum justo nibh eu lectus. Ut vulputate semper dui. Fusce erat odio, sollicitudin vel erat vel, interdum mattis neque.</p>
+            <p>{{t.bio}}</p> 
+            <button type="button" class="button"><a href="{% url 'edit_profile'%}">Edit profile</a></button>
+           </div>
+         </div>
+         {% endfor %}
+          <!-- bio -->
+        
+          <!-- images -->
+          <div class="tabs is-centered">
+            <ul>
+              <li class="is-active"><a>Posts</a>
+                <div>
+                </div>
+              </li>
+              <li><a>Saved</a></li>
+              <li><a>Tagged</a></li>
+            </ul>
+          </div>
+          <div>
+            <figure class="image is-128x128">
+                <img src="https://bulma.io/images/placeholders/128x128.png">
+            </figure>
+         </div>
+          <!-- images -->
+         
+    </div>
+   </section>
+ </body>
+</html>

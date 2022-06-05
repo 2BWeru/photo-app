@@ -1,0 +1,16 @@
+{% if categories %}
+<div class="message-box">
+<h3>Found {{ categories|length }} category of searched term {{message}}</h3>
+<br>
+{% for category in categories %}
+<h2 class="display-4 font-weight-bold">{{category.title}}</h2>
+<div class="buttons-con">
+  <div class="action-link-wrap">
+    <a onclick="history.back(-1)" class="link-button link-back-button">Go Back</a>
+    <a href="{% url 'show-category' category.id %}" class="link-button">View Category</a>
+  </div>
+</div>
+{% endfor %}
+{% else %}
+<h2>Found 0 Images for the search term {{message}}</h2>
+{% endif %}
