@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/bulma.min.css">
+    <link rel="stylesheet" href="/static/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <title>Instagram</title>
+</head>
+<body>
+    <!-- navbar -->
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        
+        <div id="navbarBasicExample" class="navbar-menu">
+          <div class="navbar-start">
+            <a class="navbar-item">
+                <span style="font-family:Pacifico">Instagram</span>
+            </a>
+            <!-- search -->
+            <a class="navbar-item" >
+            <div class="input-group rounded">
+                <form role="search" action="{% url 'search' %}">
+                    {% csrf_token %}
+                <input type="search" class="form-control rounded" placeholder="Search Profile" name="profile"  aria-label="Search" aria-describedby="search-addon" />
+                <span class="input-group-text border-0" id="search-addon">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search">Search</i></button>
+                      </div>
+                </span>
+                </form>
+              </div>
+            </a>
+            <!-- search -->
+            
+            
+          </div>
+      
+          <div class="navbar-end">
+            <div class="navbar-item">
+              <div class="buttons">
+                <a class="navbar-item" href="{% url 'home' %}">
+                    <img src="/static/icons/216242_home_icon.png" height="10" weight="10">
+                  </a>
+                  
+                  <a class="navbar-item">
+                    <img src="/static/icons/5340263_facebook_fb_message_messenger_icon.png" height="10" weight="10">
+                  </a>
+                  <a class="navbar-item" href="{% url 'post'%}">
+                    <img src="/static/icons/8201360_add_plus_new_ui_icon (1).png" height="10" weight="10">
+                </a>
+                <a class="navbar-item">
+                    <img src="/static/icons/8530694_compass_icon.png" height="10" weight="10">
+                </a>
+                <a class="navbar-item" >
+                    <img src="/static/icons/211673_heart_icon.png" height="10" weight="10">
+                </a>
+                <a>
+                    <!-- dropdown -->
+                    <div class="navbar-item has-dropdown is-hoverable">
+                        <a class="navbar-link">
+                            <figure class="image is-48x48" >
+                             <img class="is-rounded" src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image" height="5" width="5" >
+                            </figure>
+                        </a>
+                
+                        <div class="navbar-dropdown">
+                          <a class="navbar-item" href="{% url 'users-profile'%}" >
+                            Profile
+                          </a>
+                          <a class="navbar-item">
+                            Settings
+                          </a>
+                          <a class="navbar-item">
+                            Saved
+                          </a>
+                          <hr class="navbar-divider">
+                          <a class="navbar-item" href="/logout">
+                            Log out
+                          </a>
+                        </div>
+                      </div>
+                    <!-- dropdown --> 
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+    <!-- navabar -->
+
+   <!-- content -->
+   <section class="section">
+    <div class="container">
+        {% for u in updates %}
+        <div class="columns is-mobile">
+            <div class="column is-offset">
+                <div class="card">
+                    <div class="card-image">
+                      <figure class="image is-4by12">
+                          <a href="{{u.image.url}}">
+                        <img src="{{u.image.url}}" alt="Placeholder image">
+                        </a>
+                      </figure>
+                    </div>
+                    <div class="card-content">
+                      <div class="media">
+                        <div class="media-left">
+                            {% if texts %}
+                
+                            {% for t in texts %}
+                                <figure class="media-left">
+                                    <p class="image is-64x64">
+                                    <img class="is-rounded" src="{{t.avatar.url}}">
+                                    </p>
+                                </figure>
+                            {% endfor %}
+            
+                            {% else %}
+                          <figure class="image is-45x45">
+                            <img class="is-rounded" src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image"> 
+                          </figure>
+                          {% endif %}
+                        </div>
+                        <!-- likes --> 
+                        <div class="media-content">
+                            <!-- likes --> 
+                            <button class="like_btn"><img src="/static/icons/185083_love_like_icon.png" height="10" width="10"></button>
+                            <span id="num"></span>
+                          <p class="title is-4">{{user.username}}</p>
+                          <p class="subtitle is-6">@{{user.username}}</p>
+
+                        </div>
+                      </div>
+                  
+                      <div class="content">
+                        {{u.caption}}
+                        <br>
+                        <i>@{{u.name}}</i>.
+                        
+
+                        <a href="#">#css</a> <a href="#">#responsive</a>
+                        <br>
+                        <time datetime="2016-1-1">{{u.created|date:"F d, Y"}}</time>
+
+                        <p><a href="{% url 'comments' %}">Add Comment</a></p>
+                      </div>
+                    </div>
+                  </div>
+            <!-- comment -->
+            <div class="card-content">
+                <article class="media">
+               
+                    <figure class="media-left">
+                        <p class="image is-64x64">
+                        <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
+                        </p>
+                    </figure>
+                
+                  <div class="media-content">
+                    <div class="content">
+                        {% for c in comment%}
+                      <p>
+                        <strong>{{user.username}}</strong>
+                        <br>
+                        {{c.text}}
+                        <br>
+                        <small><a>Like</a> · <a>Reply</a> · 3 hrs</small>
+                      </p>
+                      {% endfor %}
+                    </div>
+                <article class="media">
+                  <div class="media-content">
+                  </div>
+                  
+                </article>
+            <!-- comment -->
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+  </section>
+
+    <!-- content -->
+    <script>
+        const vote=document.querySelector(".like_btn");
+        let count = document.querySelector("#num");
+        
+        let clicked= false;
+        vote.addEventListener("click", () =>{
+           if (!clicked) {
+             clicked = true;
+             count.textContent++;
+           }else{
+             clicked=false
+             count.textContent--;
+           }
+          }
+        );
+       </script>
+</body>
+</html>
