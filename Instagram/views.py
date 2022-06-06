@@ -1,28 +1,48 @@
+from email.message import EmailMessage
 from pyexpat.errors import messages
 from urllib import request
+from django.conf import settings
 from django.http import HttpResponseRedirect
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from urllib3 import HTTPResponse
-from .models import Like, Post, Profile,Comments,User
-
+from .models import Post, Profile,Comments
+from .email import send_welcome_email
+from django.template.loader import render_to_string
 
 
 # Create your views here.
+def home(request):
+  updates= Post.objects.all()
+  comment = Comments.objects.filter()
+  user = request.user
+  texts= Profile.objects.all()
 
-def index(request):
+  context = {
+   'updates':updates,
+   "comment":comment,
+   "user":user,
+   "texts":texts
+   }
+  return render(request, 'home.html', context)
+
+
+# imagedetails
+def details(request):
 
   updates= Post.objects.all()
   comment = Comments.objects.all()
+  
 
 
   context = {
    'comment':comment,
    'updates':updates,
+   
    }
 
-  return render(request ,'index.html',context)
+  return render(request,"details.html",context)
 
 @login_required(login_url='/accounts/login/')
 def profile(request):
@@ -45,7 +65,7 @@ def editprofile(request):
             prod.avatar = request.FILES['avatar']
 
         prod.save()
-        messages.success(request, "Profile Updated Successfully")
+        # messages.success(request, "Profile Updated Successfully")
         return redirect('users-profile')
 
    return render(request, 'Profile/edit_profile.html')
@@ -61,7 +81,7 @@ def post(request):
 
         prod.save()
         # messages.success(request, "Post Updated Successfully")
-        return redirect('index')
+        return redirect('home')
   return render(request,'addpost.html')
 
 # Comments
@@ -72,31 +92,17 @@ def comments(request):
           prod.text = request.POST.get('text')
 
           prod.save()
-          messages.success(request, "Product Added Successfully")
-          return redirect('index')
-  return render(request, 'index.html')
+          # messages.success(request, "Product Added Successfully")
+          return redirect('home')
+  return render(request, 'addcomment.html')
 
 # likes
 @login_required(login_url='/accounts/login/')
-def like_post(request):
-  user= request.user
-  post = Post.objects.get()
+def like_post(request,pk):
+  post =get_object_or_404(Post, id=request.POST.get('post_id'))
+  post.likes.add(request.user)
 
-  current_likes = post.likes
-  liked = Like.object.filter(user=user,post=post).count
-
-  if not liked:
-    liked = Like.objects.create(user=user, post=post)
-    current_likes = current_likes + 1
-  else:
-    liked = Like.object.filter(user=user,post=post).delete()
-    current_likes = current_likes - 1
-
-  post.likes = current_likes
-   
-  post.save()
-
-  return HttpResponseRedirect(reverse('post' , args=[]))
+  return HttpResponseRedirect(reverse('index', args=[str(pk)]))
   
 # search
 def search(request):
@@ -109,7 +115,7 @@ def search(request):
         return render(request, 'search/search.html',{"message":message,"items":items})
     else:
         message = "Kindly input a search term to get any results"
-        return render(request, 'main/search.html',{"message":message})
+        return render(request, 'search/search.html',{"message":message})
 
 
 @login_required(login_url='/accounts/login/')
@@ -123,15 +129,28 @@ def show(request,id):
         
        
         context = {}
-        context['profile'] = profiles
+        context['profiles'] = profiles
 
     except:
         ValueError
         raise 'Error'
-    return render(request, "main/show-category.html",context)
+    return render(request, "search/display_search.html",context)
 
 
+# email
 
+def email(request,uid):
+  template = render_to_string("instagram/email/email.html",{'name':request.user.profile.username})
+  email= EmailMessage(
+    "Thanks for logging in to Instagram",
+    template,
+    settings.EMAIL_HOST_USER,
+    ["lucy5@gmail.com"],
+  )
 
+  email.fail_silently='false'
 
- 
+  email.send()
+            #.................
+  return render(request,'index.html')
+

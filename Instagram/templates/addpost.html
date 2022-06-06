@@ -1,37 +1,68 @@
-<div class="card-body">
-  
-<div class="container">
-    <section class="section">
-      <div class="container">
-          <div class="row justify-content-center">
-              <div class="col-md-8">
-                  <div class="card">
-                      <div class="card-header">
-                          <h2 class="fw-bold">Post</h2>
-                      </div>
-                      <div class="card-body">
-                          <form action="" method="POST" enctype="multipart/form-data">
-                              {% csrf_token %}
-                              <div class="mb-3">
-                                  <label for="" class="form-label">Name</label>
-                                  <input type="text" Required name="name" class="form-control">
-                              </div>
-                              <div class="mb-3">
-                                  <label for="" class="form-label">Caption</label>
-                                  <input type="text" Required name="caption" class="form-control">
-                              </div>
-                
-                               <div class="mb-3">
-                                  <label for="" class="form-label">Image</label>
-                                  <input type="file" Required name="image" class="form-control">
-                              </div>
-                              <button type="submit" class="btn btn-primary">Post</button>
-                          </form>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </section>
-  </div>
+<head>
+    <link rel="stylesheet" href="/static/css/bulma.min.css">
+</head>
+
+<div class="box">
 </div>
+
+<br>
+<br>   
+
+
+<div class="columns" >
+    <div class="column "></div>
+    <div class="column">
+          <!-- form -->
+        <div class="card">
+          <div class="card-body">
+            <div style="margin:10px">
+              <p>Create Post</p>
+              <br>
+            <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="" class="form-label">Name</label>
+                    <input class="input" Required name="name" type="text" placeholder="Name">
+                </div>
+                <div class="mb-3">
+                    <label for="" class="form-label">Caption</label>
+                    <textarea class="textarea is-success" Required name="caption" placeholder="Add Post Caption ..."></textarea>
+
+                    
+                </div>
+  
+                 <div class="mb-3">
+                    <label for="" class="form-label">Image</label>
+
+                    <!-- file -->
+                    <div class="file has-name is-boxed">
+                        <label class="file-label">
+                          <input class="file-input" type="file" Required name="image">
+                          <span class="file-cta">
+                            <span class="file-icon">
+                              <i class="fas fa-upload"></i>
+                            </span>
+                            <span class="file-label">
+                              Choose a file…
+                            </span>
+                          </span>
+                          <span class="file-name">
+                            
+                          </span>
+                        </label>
+                      </div>
+                    <!-- file -->
+                </div>
+                <button type="submit" class="button is-danger">Post</button>
+            </form>
+            </div> 
+        </div>
+        </div>
+        <!-- form -->
+    </div>
+    <div class="column"></div>
+</div>
+                
+
+
+

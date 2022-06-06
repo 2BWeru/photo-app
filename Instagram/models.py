@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 class Profile(models.Model):
     name = models.CharField(null=True,max_length=50)
-    user = models.OneToOneField(User, related_name='profile',on_delete=models.CASCADE,default='DEFAULT VALUE', blank=True, null=True)
+    user = models.OneToOneField(User, related_name='profile',on_delete=models.CASCADE, blank=True, null=True)
     username=models.CharField(null=True,max_length=50)
     bio=models.TextField(null=True,max_length=200)
     avatar = models.ImageField(default='default.jpg', upload_to='profile_images',null=True, blank=True)
@@ -26,25 +26,32 @@ class Profile(models.Model):
 
 
     def __str__(self):
-        return self.user.username
+        return (self.username)
 
 class Post(models.Model):
     name = models.CharField(null=True,max_length=50)
-    id = models.CharField(null=False,max_length=50,primary_key=True)
     caption = models.TextField(null=True,max_length=50)
     image = models.ImageField(default='default.jpg', upload_to='photo_images')
     likes = models.ManyToManyField(User,default=None, blank=True)
     comment = models.ManyToManyField(User,default=None, blank=True,related_name='comments')
-    updated=models.DateTimeField(auto_now=True)
     created=models.DateTimeField(auto_now=True)
-    profile=models.ForeignKey(Profile, on_delete=models.CASCADE,null=True)
+
+    def save_post(self):
+        self.save()
+    
+    def delete_post(self): 
+        self.delete()
+
+    @classmethod
+    def update_image(cls,current_img,new_img):
+        updated_img = Post.objects.filter(image_name=current_img).update(name=new_img)
+        return updated_img
+
 
     def __str__(self):
-        return self.name
+        return (self.name)
 
-    @property
-    def nun_likes(self):
-        return self.liked.all().count()
+   
 # create tuple
 
 
@@ -58,8 +65,8 @@ class Like(models.Model):
 
 
 class Comments(models.Model):
-    user = models.OneToOneField(User, related_name='user',on_delete=models.CASCADE,default='DEFAULT VALUE', blank=True, null=True)
-    post=models.ForeignKey(Post,on_delete=models.CASCADE)
+    user = models.OneToOneField(User, related_name='user',on_delete=models.CASCADE, blank=True, null=True)
+    post=models.ManyToManyField(Post)
     posted=models.DateTimeField(auto_now=True)
     text=models.TextField(null=True,max_length=50)
 
