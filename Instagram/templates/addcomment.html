@@ -1,0 +1,43 @@
+<head>
+    <link rel="stylesheet" href="/static/css/bulma.min.css">
+</head>
+
+<div class="box">
+</div>
+
+<br>
+<br>
+
+<div>
+    <div class="columns">
+        <div class="column "></div>
+        <div class="column">
+              <!-- form -->
+        <div class="card">
+        <div class="card-body">
+            <div style="margin:10px">
+                <div class="card-header">
+                </div>
+                <div class="card-body">
+                    <h2 class="fw-bold">Add Comment</h2>
+                    <form action="" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="mb-3">
+            
+                        </div>
+                        <br>
+                        <textarea class="textarea is-success" Required name="text" placeholder="Add a comment ..."></textarea>
+                        <br>
+                        <br>
+                        <button type="submit" class="button is-danger">Post</button>
+                        
+                    </form>
+                </div>
+              </div>
+            </div>
+            </div>
+              <!-- form -->
+        </div>
+        <div class="column"></div>
+      </div>
+</div>
