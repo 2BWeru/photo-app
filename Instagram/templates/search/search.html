@@ -1,16 +1,40 @@
-{% if items %}
-<div class="message-box">
-<h3>Found {{ items|length }} profiles of searched term {{message}}</h3>
-<br>
-{% for p in items %}
-<h2 class="display-4 font-weight-bold">{{p.name}}</h2>
-<div class="buttons-con">
-  <div class="action-link-wrap">
-    <a onclick="history.back(-1)" class="link-button link-back-button">Go Back</a>
-    <a href="{% url 'details' %}" class="link-button">View Category</a>
-  </div>
+<head>
+  <link rel="stylesheet" href="/static/css/bulma.min.css">
+</head>
+
+<div class="box">
 </div>
-{% endfor %}
+
+<section class="hero is-danger">
+  <div class="hero-body">
+  {% if items %}
+  <div class="message-box">
+  <h3>Found {{ items|length }} profiles of searched term {{message}}</h3>
+  <br>
+  {% for p in items %}
+    <figure class="media-left">
+      <p class="image is-64x64">
+      <img class="is-rounded" src="{{p.avatar.url}}">
+      </p>
+    </figure>
+    <a href="{% url 'users-profile' p.id %}" class="link-button">
+    <p class="title">
+      {{p.username}}
+    </p>
+  </a>
+    <p class="subtitle">
+      {{p.name}}
+    </p>
+    <br>
+    <a onclick="history.back(-1)" class="link-button link-back-button">Go Back</a>
+    <br>
+    <hr>
+  {% endfor %}
 {% else %}
 <h2>Found 0 Profiles for the search term {{message}}</h2>
 {% endif %}
+
+  </div>
+</section>
+
+
