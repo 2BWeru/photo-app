@@ -87,9 +87,9 @@ WSGI_APPLICATION = 'Main.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'album',
+        'NAME': 'instagram',
         'USER': 'wamaitha',
-    'PASSWORD':'album45',
+    'PASSWORD':'4545',
     }
 }
 
@@ -124,7 +124,7 @@ USE_I18N = True
 
 USE_TZ = True
 
-LOGIN_REDIRECT_URL='index'
+LOGIN_REDIRECT_URL='home'
 LOGOUT_REDIRECT_URL = '/accounts/login/'
 
 # Static files (CSS, JavaScript, Images)
