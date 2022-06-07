@@ -35,7 +35,7 @@ DEBUG = os.environ.get('DEBUG', True)
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-93u1r(+w=0w4(y31%6%a9!sbzdi4-av%dfyxydf=^hw!-&pvz#'
+# SECRET_KEY = 'django-insecure-93u1r(+w=0w4(y31%6%a9!sbzdi4-av%dfyxydf=^hw!-&pvz#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -53,8 +53,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Instagram',
-    'bootstrap3',
     'registration',
+    'bootstrap3',
     'cloudinary_storage',
     'cloudinary',
 ]
