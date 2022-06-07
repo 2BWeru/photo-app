@@ -68,9 +68,13 @@
                         </a>
                 
                         <div class="navbar-dropdown">
-                          <a class="navbar-item" href="{% url 'users-profile'%}" >
-                            Profile
+                           profiles:
+                          {% for p in texts %}
+                          <a class="navbar-item" href="{% url 'users-profile' p.id %}">
+                            {{p.username}}
                           </a>
+                          {% endfor%}
+                        
                           <a class="navbar-item">
                             Settings
                           </a>
@@ -100,9 +104,9 @@
             <div class="column is-offset">
                 <div class="card">
                     <div class="card-image">
-                      <figure class="image is-4by12">
-                          <a href="{{u.image.url}}">
-                        <img src="{{u.image.url}}" alt="Placeholder image">
+                      <figure style="text-align:center">
+                          <a href="{% url 'details' u.id %}">
+                        <img src="{{u.image.url}}" height="500px" width="300px" alt="Placeholder image">
                         </a>
                       </figure>
                     </div>
@@ -110,15 +114,13 @@
                       <div class="media">
                         <div class="media-left">
                             {% if texts %}
-                
-                            {% for t in texts %}
+                              
                                 <figure class="media-left">
                                     <p class="image is-64x64">
-                                    <img class="is-rounded" src="{{t.avatar.url}}">
+                                    <img class="is-rounded" src="https://bulma.io/images/placeholders/96x96.png">
                                     </p>
                                 </figure>
-                            {% endfor %}
-            
+                              
                             {% else %}
                           <figure class="image is-45x45">
                             <img class="is-rounded" src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image"> 
@@ -128,10 +130,10 @@
                         <!-- likes --> 
                         <div class="media-content">
                             <!-- likes --> 
-                            <button class="like_btn"><img src="/static/icons/185083_love_like_icon.png" height="10" width="10"></button>
+                            <button class="like_btn">Like</button>
                             <span id="num"></span>
-                          <p class="title is-4">{{user.username}}</p>
-                          <p class="subtitle is-6">@{{user.username}}</p>
+                          <p class="title is-4">@{{u.name}}</p>
+                          
 
                         </div>
                       </div>
@@ -139,15 +141,15 @@
                       <div class="content">
                         {{u.caption}}
                         <br>
-                        <i>@{{u.name}}</i>.
+                       
                         
 
-                        <a href="#">#css</a> <a href="#">#responsive</a>
+                        <a href="#">#</a> <a href="#">#</a>
                         <br>
-                        <time datetime="2016-1-1">{{u.created|date:"F d, Y"}}</time>
-
-                        <p><a href="{% url 'comments' %}">Add Comment</a></p>
-                      </div>
+                        <time datetime="2016-1-1">{{u.created|date:'d, m H:i'}}</time>
+                      
+                        <p><a href="{% url 'comments'  %}">Add comment</a></p>
+                    </div>
                     </div>
                   </div>
             <!-- comment -->
@@ -162,15 +164,18 @@
                 
                   <div class="media-content">
                     <div class="content">
-                        {% for c in comment%}
+                        {% if comment %}
                       <p>
-                        <strong>{{user.username}}</strong>
+                        {% for c in comment %}
                         <br>
                         {{c.text}}
                         <br>
                         <small><a>Like</a> · <a>Reply</a> · 3 hrs</small>
+                        {% endfor %}
                       </p>
-                      {% endfor %}
+                      {% else %}
+                      <small>Post has 0 comments </small>
+                      {% endif %}
                     </div>
                 <article class="media">
                   <div class="media-content">
@@ -181,6 +186,7 @@
             </div>
         </div>
         {% endfor %}
+       
     </div>
   </section>
 
