@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.conf.urls import url,include
+from django.conf.urls import url as re_path
 
 
  
@@ -23,5 +24,6 @@ from django.conf.urls import url,include
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^',include('Instagram.urls')),
-    url(r'^accounts/',include('registration.backends.simple.urls')), 
+    url(r'^accounts/', include('django_registration.backends.activation.urls')),
+    url(r'^accounts/', include('django.contrib.auth.urls')),
 ]

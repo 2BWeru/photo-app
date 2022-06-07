@@ -42,6 +42,7 @@ def show_comments(request,id):
   
   return render(request,"display_comments.html",{"comment":comment})
 
+@login_required(login_url='/accounts/login/')
 def details(request,id):
 
   updates= Post.objects.filter(id=id)
@@ -78,6 +79,7 @@ def editprofile(request):
 
    return render(request, 'Profile/edit_profile.html')
 # post
+@login_required(login_url='/accounts/login/')
 def post(request):
   if request.method == "POST":
         prod = Post()
