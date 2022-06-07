@@ -11,14 +11,15 @@ from . import views
 
 urlpatterns = [
     path('',views.home,name = 'home'),
-    path('profile/',views.profile,name = 'users-profile'),
+    path('profile/<id>',views.profile,name = 'users-profile'),
     path('edit_profile/',views.editprofile,name = 'edit_profile'),
     path('post/',views.post,name = 'post'),
+    path('show_comments/<id>',views.show_comments,name = 'show_comments'),
     path('like/<int:pk>',views.like_post,name = 'like'),
     path('comments/',views.comments,name = 'comments'),
     path('logout/', LogoutView.as_view(),  name='logout'),
     path('items/',views.search,name = 'search'),
-    path('image/',views.details,name = 'details'),
+    path('image/<id>',views.details,name = 'details'),
     path('type/<int:id>',views.show,name = 'show-profiles'),
        
 ]
