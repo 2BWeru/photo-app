@@ -1,14 +1,10 @@
 from email.message import EmailMessage
-from pyexpat.errors import messages
 from urllib import request
 from django.conf import settings
-from django.forms import ImageField
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
-from flask_login import user_logged_in
-from urllib3 import HTTPResponse
 from .models import Post, Profile,Comments
 from .email import send_welcome_email
 from django.template.loader import render_to_string
