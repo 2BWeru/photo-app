@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 class Profile(models.Model):
     name = models.CharField(null=True,max_length=50)
+    id = models.CharField(max_length=50,primary_key=True, unique=True, blank=True)
     user = models.OneToOneField(User, related_name='profile',on_delete=models.CASCADE, blank=True, null=True)
     username=models.CharField(null=True,max_length=50)
     bio=models.TextField(null=True,max_length=200)
@@ -31,6 +32,7 @@ class Profile(models.Model):
 class Post(models.Model):
     name = models.CharField(null=True,max_length=50)
     caption = models.TextField(null=True,max_length=50)
+    id=models.CharField(max_length=50,primary_key=True, unique=True, blank=True)
     image = models.ImageField(default='default.jpg', upload_to='photo_images')
     likes = models.ManyToManyField(User,default=None, blank=True)
     comment = models.ManyToManyField(User,default=None, blank=True,related_name='comments')
@@ -71,4 +73,4 @@ class Comments(models.Model):
     text=models.TextField(null=True,max_length=50)
 
     def __str__(self):
-        return self.profile
+        return self.text
