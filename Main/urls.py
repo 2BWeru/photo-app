@@ -24,6 +24,6 @@ from django.conf.urls import url as re_path
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^',include('Instagram.urls')),
-    url(r'^accounts/', include('registration.backends.activation.urls')),
+    url(r'^accounts/', include('registration.backends.simple.urls')),
     url(r'^accounts/', include('django.contrib.auth.urls')),
 ]
