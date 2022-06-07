@@ -22,6 +22,6 @@ from django.conf.urls import url,include
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url('',include('Instagram.urls')),
+    url(r'^',include('Instagram.urls')),
     url(r'^accounts/',include('registration.backends.simple.urls')), 
 ]
