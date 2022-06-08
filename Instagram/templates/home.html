@@ -70,7 +70,7 @@
                         <div class="navbar-dropdown">
                            profiles:
                           {% for p in texts %}
-                          <a class="navbar-item" href="{% url 'users-profile'  %}">
+                          <a class="navbar-item" href="{% url 'users-profile' p_id %}">
                             {{p.username}}
                           </a>
                           {% endfor%}
