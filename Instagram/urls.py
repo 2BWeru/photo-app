@@ -10,7 +10,7 @@ from . import views
 
 urlpatterns = [
     url('^$',views.home,name = 'home'),
-    url(r'^profile/<int:id>',views.profile,name = 'users-profile'),
+    url(r'^profile/(\d+)',views.profile,name = 'users-profile'),
     url(r'^edit_profile/',views.editprofile,name = 'edit_profile'),
     url(r'^post/',views.post,name = 'post'),
     url(r'^show_comments/<id>',views.show_comments,name = 'show_comments'),
