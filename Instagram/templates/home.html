@@ -70,7 +70,7 @@
                         <div class="navbar-dropdown">
                            profiles:
                           {% for p in texts %}
-                          <a class="navbar-item" href="{% url 'users-profile' p.id %}">
+                          <a class="navbar-item" href="{% url 'users-profile'  %}">
                             {{p.username}}
                           </a>
                           {% endfor%}
@@ -108,7 +108,7 @@
                 <div class="card">
                     <div class="card-image">
                       <figure style="text-align:center">
-                          <a href="{% url 'details' u.id %}">
+                          <a href="{% url 'details'  %}">
                         <img src="{{u.image.url}}" height="500px" width="300px" alt="Placeholder image">
                         </a>
                       </figure>
