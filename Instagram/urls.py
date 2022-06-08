@@ -18,7 +18,7 @@ urlpatterns = [
     url(r'^comments/',views.comments,name = 'comments'),
     url(r'^logout/$', LogoutView.as_view(),  name='logout'),
     url(r'^items/',views.search,name = 'search'),
-    url(r'^image/<int:id>',views.details,name = 'details'),
+    url(r'^image/(\d+)',views.details,name = 'details'),
     url(r'^type/<int:id>',views.show,name = 'show-profiles'),
     
        
