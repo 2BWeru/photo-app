@@ -50,7 +50,7 @@ def details(request,id):
   return render(request,"details.html",{"updates":updates})
 
 @login_required(login_url='/accounts/login/')
-def profile(request,id):
+def profile(request):
  
        
   profiles = Profile.objects.filter(id=id)
