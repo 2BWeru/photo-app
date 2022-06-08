@@ -10,7 +10,7 @@ from . import views
 
 urlpatterns = [
     url('^$',views.home,name = 'home'),
-    url(r'^profile/<id>',views.profile,name = 'users-profile'),
+    url(r'^profile/<int:id>',views.profile,name = 'users-profile'),
     url(r'^edit_profile/',views.editprofile,name = 'edit_profile'),
     url(r'^post/',views.post,name = 'post'),
     url(r'^show_comments/<id>',views.show_comments,name = 'show_comments'),
@@ -18,7 +18,7 @@ urlpatterns = [
     url(r'^comments/',views.comments,name = 'comments'),
     url(r'^logout/$', LogoutView.as_view(),  name='logout'),
     url(r'^items/',views.search,name = 'search'),
-    url(r'^image/<id>',views.details,name = 'details'),
+    url(r'^image/<int:id>',views.details,name = 'details'),
     url(r'^type/<int:id>',views.show,name = 'show-profiles'),
     
        
